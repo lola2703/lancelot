@@ -1,0 +1,13 @@
+version: "3"
+services:
+  node:
+    image: "node:8"
+    user: "node"
+    working_dir: /home/alexander/development/bookdriver_frontend
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - ./:/home/alexander/development/bookdriver_frontend
+    ports:
+      - "5000:3000"
+    command: bash -c "npm install && npm run-script build"
