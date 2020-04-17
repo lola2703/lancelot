@@ -1,0 +1,9 @@
+export {default as Art} from './art';
+export {default as Biologie} from './biologie';
+export {default as Chemie} from './chemie';
+export {default as CultureGeneral} from './cultureGeneral';
+export {default as Geographie} from './geographie';
+export {default as Histoire} from './histoire';
+export {default as Litterature} from './litterature';
+export {default as Physique} from './physique';
+export {default as Sport} from './sport';

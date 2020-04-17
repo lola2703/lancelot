@@ -10,6 +10,7 @@ import QuizEdit from './admin/Quiz';
 import BookDetail from './pages/BookDetail';
 import Requests from "./admin/Requests";
 import Topics from "./pages/Topics";
+import Topics1 from "./pages/Topics1";
 import Blog from "./pages/Blog";
 import AdminBlog from "./admin/AdminBlog";
 import AdminFaq from "./admin/AdminFaq";
@@ -23,6 +24,8 @@ import Statistic from './pages/Statistic';
 import History from './pages/History';
 import Classmanagement from "./pages/Classmanagement";
 import StaticSite from "./components/StaticSite";
+import {HistoryDetail} from './page';
+import DetailRoute from "./details/detailRoutes";
 
 
 class Content extends React.Component {
@@ -40,7 +43,12 @@ class Content extends React.Component {
                         <Route path="/books/:query?" render={(props)=><Books props={props} showLang={false} showCover={true} lang={this.props.lang} />} />
                         <Route path="/book/:id" render={(props) => <BookDetail props={props} edit={false} lang={this.props.lang} />} />
 
-                        <Route exact path="/topics" render={(props) => <Topics modalRead={false} admin={false} props={props} lang={this.props.lang} />} />
+
+                        <Route exact path="/topics" render={(props) => <Topics1 modalRead={false} admin={false} props={props} lang={this.props.lang} />} />
+                        <Route path="/histoireDetail" component={HistoryDetail} />
+                        <Route path="/detailRoute" component={DetailRoute} />
+
+                        <Route exact path="/topics1" render={(props) => <Topics modalRead={false} admin={false} props={props} lang={this.props.lang} />} />
                         <Route exact path="/topic/:id" render={(props) => <Topics modalRead={true} modalId={props.match.params.id} admin={false} props={props} lang={this.props.lang} />} />
 
 
