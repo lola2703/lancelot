@@ -2,11 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import LoginForm from './../components/Login';
-import {Link, Redirect} from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import history from "./History";
 import {
     Row,
-    CardTitle,
+    CardTitle, InputGroup, InputGroupText, InputGroupAddon, Input,
     Col,
     Card,
     CardBody,
@@ -15,14 +15,21 @@ import {
     Button,
     Modal,
     ModalBody,
-    UncontrolledCarousel
+    UncontrolledCarousel,
 } from 'reactstrap';
-import {PulseLoader} from "react-spinners";
+import { PulseLoader } from "react-spinners";
 import messageIcon from './../images/icon-1332772_640.png';
 import bookIcon from './../images/buecherregal.png';
 import groupIcon from './../images/klassen.png';
 import statsIcon from './../images/stats.png';
 import ChangePassword from "../components/ChangePassword";
+import logo from '../assets/images/logo.png'
+import historyImage from '../assets/images/history.png'
+import responseImage from '../assets/images/response.png'
+import math from '../assets/images/math.png'
+
+
+
 
 const items = [];
 
@@ -43,8 +50,48 @@ class Index extends React.Component {
             points: 0,
             lastBook: [],
             changePw: false,
+            email:'',
             zugewiesenBooks: []
         };
+        this.data = [
+            {
+                image: responseImage,
+                firstHeading: 'Plateforme educative en ligne',
+                secondHeading: 'Ordinateur, tablette, smartphone'
+            },
+            {
+                image: historyImage,
+                firstHeading: 'Le plaisir d apprendre',
+                secondHeading: 'Tous les Theme du programme'
+            },
+            {
+                image: logo,
+                firstHeading: 'Plateforme educative en ligne',
+                secondHeading: 'Systeme encourangeant de points'
+            },
+            {
+                image: math,
+                firstHeading: 'Ideal for techer',
+                secondHeading: 'Creer des classes, suivre les notes'
+            },
+        ];
+        this.imageStyle = {
+            display: 'block',
+            marginLeft: 'auto',
+            marginRight: 'auto',
+            width: '250px',
+            height: '150px',
+            borderRadius: '50px',
+            border: '1px solid #92d050',
+            padding: '5px'
+        };
+        this.headingStyle = {
+            fontFamily: '"Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif', 
+            fontSize: '15px', 
+            fontWeight: 600, 
+            height: '22.5px', 
+            color: 'rgb(73, 80, 87)'
+        }
 
         //Bilder laden
         for (var i = 0; i < localStorage.getItem('cntImages'); i++) {
@@ -64,6 +111,7 @@ class Index extends React.Component {
         this.renderStudent = this.renderStudent.bind(this);
         this.toggleChangePw = this.toggleChangePw.bind(this);
     }
+
 
     componentWillMount() {
         this.loadIndexData();
@@ -134,7 +182,7 @@ class Index extends React.Component {
                 <Card>
                     <CardBody>
                         <center>
-                            Loading data...<br/>
+                            Loading data...<br />
                             <PulseLoader
                                 loading={true}
                                 color="#36D7B7"
@@ -167,11 +215,11 @@ class Index extends React.Component {
                             </CardTitle>
                         </CardHeader>
                         <CardBody>
-                            <Link to="/messages">Go to your inbox</Link><br/><br/>
+                            <Link to="/messages">Go to your inbox</Link><br /><br />
                             Use the menu below to manage your site!
                         </CardBody>
                         <CardFooter>
-                            <Button color="red"  onClick={() => window.location.href="#/logout"}>{this.props.lang.logout}</Button>&nbsp;&nbsp;<Button color="green" onClick={() => this.toggleChangePw()}>{this.props.lang.changepw}</Button>
+                            <Button color="red" onClick={() => window.location.href = "#/logout"}>{this.props.lang.logout}</Button>&nbsp;&nbsp;<Button color="green" onClick={() => this.toggleChangePw()}>{this.props.lang.changepw}</Button>
 
                         </CardFooter>
                     </Card>
@@ -227,7 +275,7 @@ class Index extends React.Component {
                             </CardHeader>
                             <CardBody>
                                 <center>
-                                    <Link to="/history"><img src={bookIcon} height="100"/></Link>
+                                    <Link to="/history"><img src={bookIcon} height="100" /></Link>
                                 </center>
                             </CardBody>
                         </Card>
@@ -241,7 +289,7 @@ class Index extends React.Component {
                             </CardHeader>
                             <CardBody>
                                 <center>
-                                    <Link to="/messages"><img src={messageIcon} height="100"/></Link>
+                                    <Link to="/messages"><img src={messageIcon} height="100" /></Link>
                                 </center>
                             </CardBody>
                         </Card>
@@ -257,11 +305,11 @@ class Index extends React.Component {
                                 </h3>
                             </CardHeader>
                             <CardBody>
-                                {(this.state.zugewiesenBooks.map( function(book) {
+                                {(this.state.zugewiesenBooks.map(function (book) {
                                     return (
-                                        <Link to={"/book/"+book.id}><img
-                                            src={localStorage.getItem('API_URL') + '/upload_files/' +book.cover}
-                                            height="100"/></Link>
+                                        <Link to={"/book/" + book.id}><img
+                                            src={localStorage.getItem('API_URL') + '/upload_files/' + book.cover}
+                                            height="100" /></Link>
                                     )
                                 }))}
                             </CardBody>
@@ -280,9 +328,9 @@ class Index extends React.Component {
                             <CardBody>
                                 <center>
                                     {(this.state.lastBook.id > 0) && (
-                                        <Link to={"/book/"+this.state.lastBook.id}><img
+                                        <Link to={"/book/" + this.state.lastBook.id}><img
                                             src={localStorage.getItem('API_URL') + '/upload_files/' + this.state.lastBook.cover}
-                                            height="100"/>
+                                            height="100" />
                                             <h3>&nbsp;{this.state.lastBook.title}</h3></Link>
                                     )}
                                 </center>
@@ -294,7 +342,7 @@ class Index extends React.Component {
                 <Row>
                     <Card>
                         <CardBody>
-                            <Button color="red"  onClick={() => window.location.href="#/logout"}>{this.props.lang.logout}</Button>&nbsp;&nbsp;<Button color="green" onClick={() => this.toggleChangePw()}>{this.props.lang.changepw}</Button>
+                            <Button color="red" onClick={() => window.location.href = "#/logout"}>{this.props.lang.logout}</Button>&nbsp;&nbsp;<Button color="green" onClick={() => this.toggleChangePw()}>{this.props.lang.changepw}</Button>
                         </CardBody>
                     </Card>
                 </Row>
@@ -336,7 +384,7 @@ class Index extends React.Component {
                             <CardBody>
                                 <center>
                                     <h2>
-                                        <Link to="/stat/user"><img src={statsIcon} height="100"/></Link>
+                                        <Link to="/stat/user"><img src={statsIcon} height="100" /></Link>
                                     </h2>
                                 </center>
                             </CardBody>
@@ -351,7 +399,7 @@ class Index extends React.Component {
                             </CardHeader>
                             <CardBody>
                                 <center>
-                                    <Link to="/teacher/classes"><img src={groupIcon} height="100"/></Link>
+                                    <Link to="/teacher/classes"><img src={groupIcon} height="100" /></Link>
                                 </center>
                             </CardBody>
                         </Card>
@@ -365,7 +413,7 @@ class Index extends React.Component {
                             </CardHeader>
                             <CardBody>
                                 <center>
-                                    <Link to="/messages"><img src={messageIcon} height="100"/></Link>
+                                    <Link to="/messages"><img src={messageIcon} height="100" /></Link>
                                 </center>
                             </CardBody>
                         </Card>
@@ -374,7 +422,7 @@ class Index extends React.Component {
                 <Row>
                     <Card>
                         <CardBody>
-                            <Button color="red" onClick={() => window.location.href="#/logout"}>{this.props.lang.logout}</Button>&nbsp;&nbsp;<Button color="green" onClick={() => this.toggleChangePw()}>{this.props.lang.changepw}</Button>
+                            <Button color="red" onClick={() => window.location.href = "#/logout"}>{this.props.lang.logout}</Button>&nbsp;&nbsp;<Button color="green" onClick={() => this.toggleChangePw()}>{this.props.lang.changepw}</Button>
                         </CardBody>
                     </Card>
                 </Row>
@@ -389,6 +437,12 @@ class Index extends React.Component {
             </div>
         );
     }
+    handleChange=(event)=>this.setState({email:event.target.value});
+    handleSubmit=()=>{
+        axios.post('https://lancelot-server.herokuapp.com/send',{email:this.state.email}).then(res=>
+        console.log('res..',res)).catch(err=>console.log('err..',err));
+    }
+    
 
 
     render() {
@@ -396,13 +450,13 @@ class Index extends React.Component {
         if (this.props.changelang) {
             this.props.lang.setLanguage(this.props.newlang);
             localStorage.setItem('LANGUAGE', this.props.lang.getLanguage());
-            return (<Redirect to="/"/>);
+            return (<Redirect to="/" />);
         }
 
         if (this.props.logout) {
             sessionStorage.clear();
             return (
-                <Redirect to="/"/>
+                <Redirect to="/" />
             );
         }
 
@@ -418,14 +472,14 @@ class Index extends React.Component {
                     <Row>
 
                         <Col lg="7">
-                            <UncontrolledCarousel items={items}/>
-                            <br/>
+                            <UncontrolledCarousel items={items} />
+                            <br />
                         </Col>
                         <Col lg="4">
                             <Card>
                                 <CardBody>
                                     <div
-                                        dangerouslySetInnerHTML={{__html: localStorage.getItem('indexDesc_' + this.props.lang.getLanguage())}}>
+                                        dangerouslySetInnerHTML={{ __html: localStorage.getItem('indexDesc_' + this.props.lang.getLanguage()) }}>
 
                                     </div>
                                 </CardBody>
@@ -437,106 +491,34 @@ class Index extends React.Component {
 
                     <div className=" dividerBookdriver footer bg-bookdriver ">
                     </div>
-
-                    <Row>
-
-                        <Col sm="6" lg="3">
-                            <Card className="p-3">
-                                <div className="d-flex align-items-center">
-                                    <span className="stamp stamp-md bg-red mr-3">
-                                      <i className="fe fe-users"></i>
-                                    </span>
-                                    <div>
-                                        <h4 className="m-0">{localStorage.getItem('cntMembers')}
-                                            <small> {this.props.lang.members}</small>
-                                        </h4>
-                                    </div>
+                    {this.data.map(item =>
+                        <Row style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '20px', margin: 'auto' }}>
+                            <div style={{ marginTop: '50px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                                <div>
+                                    <img src={item.image} alt="Paris" style={this.imageStyle} />
                                 </div>
-                            </Card>
-                        </Col>
-
-                        <Col sm="6" lg="3">
-                            <Card className="p-3">
-                                <div className="d-flex align-items-center">
-                                    <span className="stamp stamp-md bg-green mr-3">
-                                      <i className="fe fe-file-text"></i>
-                                    </span>
-                                    <div>
-                                        <h4 className="m-0">{localStorage.getItem('cntBooks')}
-                                            <small> {this.props.lang.books}</small>
-                                        </h4>
-                                    </div>
+                                <div style={{ marginTop: '20px', textAlign: 'center' }}>
+                                    <h2 style={this.headingStyle}>
+                                        {item.firstHeading}
+                                    </h2>
+                                    <h2 style={{ fontFamily: '"Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif', fontSize: '15px', fontWeight: 400, height: '22.5px', color: 'rgb(73, 80, 87)' }}>
+                                        <i>
+                                            {item.secondHeading}
+                                        </i>
+                                    </h2>
                                 </div>
-                            </Card>
-                        </Col>
+                            </div>
 
-
-                        <Col sm="6" lg="3">
-                            <Card className="p-3">
-                                <div className="d-flex align-items-center">
-                                    <span className="stamp stamp-md bg-yellow mr-3">
-                                      <i className="fe fe-message-square"></i>
-                                    </span>
-                                    <div>
-                                        <h4 className="m-0">{localStorage.getItem('cntQuestions')}
-                                            <small> {this.props.lang.questions}</small>
-                                        </h4>
-                                    </div>
-                                </div>
-                            </Card>
-                        </Col>
-
+                        </Row>
+                    )}
+                    <Row style={{ margin: '50px', display: 'flex', justifyContent: 'center' }}>
+                        <InputGroup style={{ width: '600px', border: '1px solid #92d050', borderRadius: '5px' }}>
+                            <Input onChange={(event)=>this.handleChange(event)} required/>
+                            <InputGroupAddon addonType="append">
+                                <Button style={{ background: '#92d050', border: 'none' }} onClick={this.handleSubmit}><InputGroupText style={{ background: '#92d050', border: 'none' }}>NewsLetter</InputGroupText></Button>
+                            </InputGroupAddon>
+                        </InputGroup>
                     </Row>
-                    <Row>
-
-                        <Col sm="6" lg="3">
-                            <Card className="p-3">
-                                <div className="d-flex align-items-center">
-                                    <span className="stamp stamp-md bg-yellow mr-3">
-                                      <i className="fe fe-message-square"></i>
-                                    </span>
-                                    <div>
-                                        <h4 className="m-0">{localStorage.getItem('cntSchools')}
-                                            <small> {this.props.lang.schools}</small>
-                                        </h4>
-                                    </div>
-                                </div>
-                            </Card>
-                        </Col>
-
-                        <Col sm="6" lg="3">
-                            <Card className="p-3">
-                                <div className="d-flex align-items-center">
-                                    <span className="stamp stamp-md bg-yellow mr-3">
-                                      <i className="fe fe-message-square"></i>
-                                    </span>
-                                    <div>
-                                        <h4 className="m-0">{localStorage.getItem('cntLibs')}
-                                            <small> {this.props.lang.libs}</small>
-                                        </h4>
-                                    </div>
-                                </div>
-                            </Card>
-                        </Col>
-
-                        <Col sm="6" lg="3">
-                            <Card className="p-3">
-                                <div className="d-flex align-items-center">
-                                    <span className="stamp stamp-md bg-yellow mr-3">
-                                      <i className="fe fe-message-square"></i>
-                                    </span>
-                                    <div>
-                                        <h4 className="m-0">{localStorage.getItem('cntGroups')}
-                                            <small> {this.props.lang.vereine}</small>
-                                        </h4>
-                                    </div>
-                                </div>
-                            </Card>
-                        </Col>
-
-
-                    </Row>
-
                 </div>
             );
         }
