@@ -57,7 +57,7 @@ class Footer extends React.Component {
                 </div>
                 <div className="col-6 col-md-3"></div>
                 <div className="col-6 col-md-3">
-                  <a href="https://www.facebook.com/">
+                  <a href="https://www.facebook.com/Lancelot.education">
                     <img
                       src={require("./assets/fb.png")}
                       width="50px"
@@ -65,7 +65,7 @@ class Footer extends React.Component {
                       alt="Facebook Icon"
                     />
                   </a>
-                  <a href="https://www.instagram.com/">
+                  <a href="https://www.instagram.com/lanceloteducation/">
                     <img
                       src={require("./assets/insta.png")}
                       width="50px"
@@ -73,7 +73,7 @@ class Footer extends React.Component {
                       alt="Instagram Icon"
                     />
                   </a>
-                  <a href="https://twitter.com/">
+                  <a href="#">
                     <img
                       src={require("./assets/twitter.png")}
                       width="50px"
@@ -81,7 +81,7 @@ class Footer extends React.Component {
                       alt="Twitter Icon"
                     />
                   </a>
-                  <a href="https://www.youtube.com/">
+                  <a href="#">
                     <img
                       src={require("./assets/youtube.png")}
                       width="50px"
