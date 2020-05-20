@@ -15,7 +15,9 @@
 .env.development.local
 .env.test.local
 .env.production.local
-
+lancelot.zip
+/lancelot.zip
+./lancelot.zip
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
